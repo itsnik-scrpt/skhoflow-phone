@@ -1,0 +1,86 @@
+# Builds an unsigned SkhoFlow.ipa on a free GitHub-hosted macOS runner.
+# Trigger manually (Actions tab -> "Run workflow") or on every push.
+# Download the .ipa from the workflow run's "Artifacts" section, then
+# run ios/sideload/sideload.ps1 on Windows to install via Sideloadly.
+
+name: Build iOS .ipa (unsigned)
+
+on:
+  push:
+    paths:
+      - "ios/**"
+      - ".github/workflows/build-ios.yml"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-14
+    timeout-minutes: 25
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode_15.4.app
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Generate Xcode project
+        working-directory: ios
+        run: xcodegen generate --spec project.yml
+
+      - name: Archive (unsigned)
+        working-directory: ios
+        run: |
+          set -euo pipefail
+          xcodebuild \
+            -project SkhoFlow.xcodeproj \
+            -scheme SkhoFlow \
+            -configuration Release \
+            -destination "generic/platform=iOS" \
+            -archivePath build/SkhoFlow.xcarchive \
+            archive \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGN_ENTITLEMENTS="" \
+            DEVELOPMENT_TEAM="" \
+            PROVISIONING_PROFILE_SPECIFIER="" \
+            ONLY_ACTIVE_ARCH=NO
+
+      - name: Package unsigned .ipa
+        working-directory: ios
+        run: |
+          set -euo pipefail
+          APP_PATH="build/SkhoFlow.xcarchive/Products/Applications/SkhoFlow.app"
+          if [ ! -d "$APP_PATH" ]; then
+            echo "::error::Expected $APP_PATH to exist after archive"
+            ls -la build/SkhoFlow.xcarchive/Products/Applications/ || true
+            exit 1
+          fi
+
+          rm -rf build/Payload build/SkhoFlow.ipa
+          mkdir -p build/Payload
+          cp -R "$APP_PATH" build/Payload/
+
+          (cd build && zip -qr SkhoFlow.ipa Payload)
+
+          echo "Built: $(ls -lh build/SkhoFlow.ipa)"
+
+      - name: Upload .ipa artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: SkhoFlow-ipa
+          path: ios/build/SkhoFlow.ipa
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Summary
+        run: |
+          echo "### SkhoFlow.ipa built" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Download the artifact named **SkhoFlow-ipa** above," >> $GITHUB_STEP_SUMMARY
+          echo "unzip it, and use \`ios/sideload/sideload.ps1\` on Windows" >> $GITHUB_STEP_SUMMARY
+          echo "to install it via Sideloadly." >> $GITHUB_STEP_SUMMARY

@@ -1,0 +1,26 @@
+# Build output
+bin/
+obj/
+publish/
+*.user
+*.suo
+.vs/
+
+# Installer output
+installer/Output/
+
+# Xcode
+ios/build/
+ios/DerivedData/
+ios/*.xcuserstate
+ios/*.xcuserdatad/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Local settings
+settings.local.json

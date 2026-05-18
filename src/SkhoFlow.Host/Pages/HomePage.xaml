@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="SkhoFlow.Host.Pages.HomePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ScrollViewer Style="{StaticResource PageRootStyle}">
+        <StackPanel Spacing="20" MaxWidth="1100" HorizontalAlignment="Stretch">
+
+            <!-- Headline -->
+            <StackPanel Spacing="4">
+                <TextBlock Style="{StaticResource LabelStyle}" Text="HOST" />
+                <TextBlock Style="{StaticResource PageHeadlineStyle}" Text="Stream your PC to iPhone" />
+                <TextBlock Style="{StaticResource SubtitleStyle}"
+                           Text="Low-latency, glass-smooth. Pair a device, hit play, lift off." />
+            </StackPanel>
+
+            <!-- Hero card -->
+            <Border Style="{StaticResource HeroCardStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Spacing="14">
+                        <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                            <Border Width="10" Height="10" CornerRadius="5"
+                                    Background="{StaticResource AccentBrush}">
+                                <Border.Shadow>
+                                    <ThemeShadow />
+                                </Border.Shadow>
+                            </Border>
+                            <TextBlock x:Name="StatusLabel"
+                                       Text="Ready to host"
+                                       FontSize="13"
+                                       FontWeight="SemiBold"
+                                       CharacterSpacing="40"
+                                       Foreground="{StaticResource TextPrimaryBrush}" />
+                        </StackPanel>
+
+                        <TextBlock Text="Hosting on this network"
+                                   Style="{StaticResource SubtitleStyle}" />
+
+                        <StackPanel Orientation="Horizontal" Spacing="20">
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource LabelStyle}" Text="HOST" />
+                                <TextBlock x:Name="HostNameText"
+                                           FontSize="22"
+                                           FontWeight="SemiBold"
+                                           Foreground="{StaticResource TextPrimaryBrush}" />
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource LabelStyle}" Text="IP ADDRESS" />
+                                <TextBlock x:Name="IpAddressText"
+                                           FontSize="22"
+                                           FontWeight="SemiBold"
+                                           FontFamily="Consolas"
+                                           Foreground="{StaticResource TextPrimaryBrush}" />
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource LabelStyle}" Text="PORT" />
+                                <TextBlock x:Name="PortText"
+                                           FontSize="22"
+                                           FontWeight="SemiBold"
+                                           FontFamily="Consolas"
+                                           Foreground="{StaticResource TextPrimaryBrush}" />
+                            </StackPanel>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Spacing="12" Margin="0,12,0,0">
+                            <Button x:Name="StartHostingButton"
+                                    Style="{StaticResource AccentButtonStyle}"
+                                    Click="StartHosting_Click">
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <FontIcon Glyph="&#xE768;" FontFamily="{StaticResource SymbolFont}" FontSize="14" />
+                                    <TextBlock Text="Start hosting" />
+                                </StackPanel>
+                            </Button>
+                            <Button x:Name="PairButton"
+                                    Style="{StaticResource GlassButtonStyle}"
+                                    Click="PairDevice_Click">
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <FontIcon Glyph="&#xE710;" FontFamily="{StaticResource SymbolFont}" FontSize="14" />
+                                    <TextBlock Text="Pair device" />
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!-- Brand mark on the right -->
+                    <Grid Grid.Column="1" Width="180" Height="180" VerticalAlignment="Center">
+                        <Ellipse Fill="{StaticResource AccentGlowBrush}" Opacity="0.7" />
+                        <Border Width="92" Height="92"
+                                CornerRadius="26"
+                                Background="{StaticResource AccentGradientBrush}"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center">
+                            <FontIcon Glyph="&#xE978;"
+                                      FontFamily="{StaticResource SymbolFont}"
+                                      FontSize="44"
+                                      Foreground="White" />
+                        </Border>
+                    </Grid>
+                </Grid>
+            </Border>
+
+            <!-- Stat tiles -->
+            <Grid ColumnSpacing="16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" Style="{StaticResource GlassCardStyle}">
+                    <StackPanel Spacing="4">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <FontIcon Glyph="&#xE8EA;" FontFamily="{StaticResource SymbolFont}" FontSize="14"
+                                      Foreground="{StaticResource AccentBrush}" />
+                            <TextBlock Style="{StaticResource LabelStyle}" Text="PAIRED" />
+                        </StackPanel>
+                        <TextBlock x:Name="PairedCountText" Style="{StaticResource StatValueStyle}" Text="0" />
+                        <TextBlock Style="{StaticResource SubtitleStyle}" Text="iOS devices" />
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="1" Style="{StaticResource GlassCardStyle}">
+                    <StackPanel Spacing="4">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <FontIcon Glyph="&#xEC4A;" FontFamily="{StaticResource SymbolFont}" FontSize="14"
+                                      Foreground="{StaticResource AccentBrush}" />
+                            <TextBlock Style="{StaticResource LabelStyle}" Text="RESOLUTION" />
+                        </StackPanel>
+                        <TextBlock x:Name="ResolutionText" Style="{StaticResource StatValueStyle}" Text="1080p" />
+                        <TextBlock x:Name="FpsText" Style="{StaticResource SubtitleStyle}" Text="60 fps" />
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="2" Style="{StaticResource GlassCardStyle}">
+                    <StackPanel Spacing="4">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <FontIcon Glyph="&#xEA86;" FontFamily="{StaticResource SymbolFont}" FontSize="14"
+                                      Foreground="{StaticResource AccentBrush}" />
+                            <TextBlock Style="{StaticResource LabelStyle}" Text="BITRATE" />
+                        </StackPanel>
+                        <TextBlock x:Name="BitrateText" Style="{StaticResource StatValueStyle}" Text="20" />
+                        <TextBlock Style="{StaticResource SubtitleStyle}" Text="Mbps target" />
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="3" Style="{StaticResource GlassCardStyle}">
+                    <StackPanel Spacing="4">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <FontIcon Glyph="&#xE945;" FontFamily="{StaticResource SymbolFont}" FontSize="14"
+                                      Foreground="{StaticResource AccentBrush}" />
+                            <TextBlock Style="{StaticResource LabelStyle}" Text="ENCODER" />
+                        </StackPanel>
+                        <TextBlock x:Name="EncoderText" Style="{StaticResource StatValueStyle}" Text="Auto" />
+                        <TextBlock Style="{StaticResource SubtitleStyle}" Text="H.264" />
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <!-- Get started panel -->
+            <Border Style="{StaticResource GlassCardStyle}">
+                <StackPanel Spacing="14">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <FontIcon Glyph="&#xE946;" FontFamily="{StaticResource SymbolFont}" FontSize="16"
+                                  Foreground="{StaticResource AccentBrush}" />
+                        <TextBlock Style="{StaticResource TitleStyle}" Text="Get started" />
+                    </StackPanel>
+
+                    <StackPanel Spacing="10">
+                        <Grid ColumnSpacing="12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="32" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Border Width="28" Height="28" CornerRadius="14"
+                                    Background="{StaticResource Black700Brush}"
+                                    BorderBrush="{StaticResource GlassStrokeBrush}" BorderThickness="1">
+                                <TextBlock Text="1" Foreground="{StaticResource AccentBrush}"
+                                           FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <StackPanel Grid.Column="1" Spacing="2">
+                                <TextBlock Text="Install SkhoFlow on your iPhone" Foreground="{StaticResource TextPrimaryBrush}" FontWeight="SemiBold" />
+                                <TextBlock Style="{StaticResource SubtitleStyle}" Text="Search 'SkhoFlow' on the App Store, or sideload via TestFlight." />
+                            </StackPanel>
+                        </Grid>
+
+                        <Grid ColumnSpacing="12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="32" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Border Width="28" Height="28" CornerRadius="14"
+                                    Background="{StaticResource Black700Brush}"
+                                    BorderBrush="{StaticResource GlassStrokeBrush}" BorderThickness="1">
+                                <TextBlock Text="2" Foreground="{StaticResource AccentBrush}"
+                                           FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <StackPanel Grid.Column="1" Spacing="2">
+                                <TextBlock Text="Make sure both devices are on the same Wi-Fi" Foreground="{StaticResource TextPrimaryBrush}" FontWeight="SemiBold" />
+                                <TextBlock Style="{StaticResource SubtitleStyle}" Text="5 GHz Wi-Fi 6 is strongly recommended for smooth playback." />
+                            </StackPanel>
+                        </Grid>
+
+                        <Grid ColumnSpacing="12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="32" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Border Width="28" Height="28" CornerRadius="14"
+                                    Background="{StaticResource Black700Brush}"
+                                    BorderBrush="{StaticResource GlassStrokeBrush}" BorderThickness="1">
+                                <TextBlock Text="3" Foreground="{StaticResource AccentBrush}"
+                                           FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <StackPanel Grid.Column="1" Spacing="2">
+                                <TextBlock Text="Pair, then stream" Foreground="{StaticResource TextPrimaryBrush}" FontWeight="SemiBold" />
+                                <TextBlock Style="{StaticResource SubtitleStyle}" Text="Click 'Pair device' to get a one-time PIN. Enter it on the iPhone." />
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</Page>

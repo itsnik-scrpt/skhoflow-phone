@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="SkhoFlow.Host.Pages.SessionPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ScrollViewer Style="{StaticResource PageRootStyle}">
+        <StackPanel Spacing="20" MaxWidth="1100" HorizontalAlignment="Stretch">
+
+            <StackPanel Spacing="4">
+                <TextBlock Style="{StaticResource LabelStyle}" Text="SESSION" />
+                <TextBlock Style="{StaticResource PageHeadlineStyle}" Text="Live stream" />
+                <TextBlock x:Name="SessionSubtitle"
+                           Style="{StaticResource SubtitleStyle}"
+                           Text="Nothing streaming. Start a session from Home." />
+            </StackPanel>
+
+            <!-- Idle hero -->
+            <Border x:Name="IdleCard" Style="{StaticResource HeroCardStyle}">
+                <StackPanel Spacing="14">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <FontIcon Glyph="&#xE7B5;" FontFamily="{StaticResource SymbolFont}" FontSize="16"
+                                  Foreground="{StaticResource AccentBrush}" />
+                        <TextBlock Style="{StaticResource TitleStyle}" Text="Idle" />
+                    </StackPanel>
+                    <TextBlock Style="{StaticResource SubtitleStyle}"
+                               Text="When an iPhone connects and starts a session, you'll see live frame rate, latency and bitrate here." />
+                </StackPanel>
+            </Border>
+
+            <!-- Live hero -->
+            <Border x:Name="LiveCard" Style="{StaticResource HeroCardStyle}" Visibility="Collapsed">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Spacing="10">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <Border Width="10" Height="10" CornerRadius="5" Background="{StaticResource AccentHotBrush}" />
+                            <TextBlock Text="STREAMING"
+                                       FontSize="11" FontWeight="SemiBold" CharacterSpacing="200"
+                                       Foreground="{StaticResource AccentHotBrush}" />
+                        </StackPanel>
+                        <TextBlock x:Name="LiveDeviceName"
+                                   FontSize="28" FontWeight="SemiBold"
+                                   Foreground="{StaticResource TextPrimaryBrush}" />
+                        <TextBlock x:Name="LiveUptime" Style="{StaticResource SubtitleStyle}" />
+                    </StackPanel>
+
+                    <Button Grid.Column="1"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource GlassButtonStyle}"
+                            Click="StopSession_Click">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <FontIcon Glyph="&#xE71A;" FontFamily="{StaticResource SymbolFont}" FontSize="14"
+                                      Foreground="{StaticResource AccentHotBrush}" />
+                            <TextBlock Text="End session" />
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </Border>
+
+            <!-- Live stats -->
+            <Grid x:Name="StatsGrid" ColumnSpacing="16" Visibility="Collapsed">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" Style="{StaticResource GlassCardStyle}">
+                    <StackPanel Spacing="4">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <FontIcon Glyph="&#xEC4A;" FontFamily="{StaticResource SymbolFont}" FontSize="14"
+                                      Foreground="{StaticResource AccentBrush}" />
+                            <TextBlock Style="{StaticResource LabelStyle}" Text="FRAME RATE" />
+                        </StackPanel>
+                        <TextBlock x:Name="StatFps" Style="{StaticResource StatValueStyle}" Text="—" />
+                        <TextBlock Style="{StaticResource SubtitleStyle}" Text="fps" />
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="1" Style="{StaticResource GlassCardStyle}">
+                    <StackPanel Spacing="4">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <FontIcon Glyph="&#xE945;" FontFamily="{StaticResource SymbolFont}" FontSize="14"
+                                      Foreground="{StaticResource AccentBrush}" />
+                            <TextBlock Style="{StaticResource LabelStyle}" Text="LATENCY" />
+                        </StackPanel>
+                        <TextBlock x:Name="StatLatency" Style="{StaticResource StatValueStyle}" Text="—" />
+                        <TextBlock Style="{StaticResource SubtitleStyle}" Text="ms end-to-end" />
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="2" Style="{StaticResource GlassCardStyle}">
+                    <StackPanel Spacing="4">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <FontIcon Glyph="&#xEA86;" FontFamily="{StaticResource SymbolFont}" FontSize="14"
+                                      Foreground="{StaticResource AccentBrush}" />
+                            <TextBlock Style="{StaticResource LabelStyle}" Text="BITRATE" />
+                        </StackPanel>
+                        <TextBlock x:Name="StatBitrate" Style="{StaticResource StatValueStyle}" Text="—" />
+                        <TextBlock Style="{StaticResource SubtitleStyle}" Text="Mbps live" />
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="3" Style="{StaticResource GlassCardStyle}">
+                    <StackPanel Spacing="4">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <FontIcon Glyph="&#xE730;" FontFamily="{StaticResource SymbolFont}" FontSize="14"
+                                      Foreground="{StaticResource AccentBrush}" />
+                            <TextBlock Style="{StaticResource LabelStyle}" Text="DROPPED" />
+                        </StackPanel>
+                        <TextBlock x:Name="StatDropped" Style="{StaticResource StatValueStyle}" Text="—" />
+                        <TextBlock Style="{StaticResource SubtitleStyle}" Text="frames total" />
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+        </StackPanel>
+    </ScrollViewer>
+</Page>

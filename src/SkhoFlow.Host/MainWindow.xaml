@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<winex:WindowEx
+    x:Class="SkhoFlow.Host.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:winex="using:WinUIEx"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:pages="using:SkhoFlow.Host.Pages"
+    MinWidth="1080"
+    MinHeight="680"
+    Width="1280"
+    Height="800"
+    Title="SkhoFlow">
+
+    <Grid x:Name="RootGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Custom title bar (drag region) -->
+        <Grid x:Name="AppTitleBar" Grid.Row="0" Background="Transparent">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0"
+                    Width="28" Height="28"
+                    Margin="16,0,10,0"
+                    CornerRadius="8"
+                    Background="{StaticResource AccentGradientBrush}">
+                <FontIcon Glyph="&#xE978;"
+                          FontSize="14"
+                          Foreground="White"
+                          FontFamily="{StaticResource SymbolFont}" />
+            </Border>
+
+            <TextBlock Grid.Column="1"
+                       Text="SkhoFlow"
+                       VerticalAlignment="Center"
+                       FontSize="14"
+                       FontWeight="SemiBold"
+                       CharacterSpacing="40"
+                       Foreground="{StaticResource TextPrimaryBrush}" />
+
+            <StackPanel Grid.Column="3"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Center"
+                        Margin="0,0,12,0"
+                        Spacing="6">
+                <Border Width="8" Height="8" CornerRadius="4" Background="{StaticResource AccentBrush}">
+                    <Border.RenderTransform>
+                        <ScaleTransform x:Name="StatusPulse" CenterX="4" CenterY="4" />
+                    </Border.RenderTransform>
+                </Border>
+                <TextBlock x:Name="StatusText"
+                           Text="Idle"
+                           VerticalAlignment="Center"
+                           FontSize="12"
+                           Foreground="{StaticResource TextSecondaryBrush}" />
+            </StackPanel>
+        </Grid>
+
+        <!-- Main content with NavigationView -->
+        <muxc:NavigationView x:Name="NavView"
+                             Grid.Row="1"
+                             PaneDisplayMode="Left"
+                             OpenPaneLength="240"
+                             CompactPaneLength="56"
+                             IsBackButtonVisible="Collapsed"
+                             IsSettingsVisible="False"
+                             SelectionChanged="NavView_SelectionChanged"
+                             Background="Transparent">
+
+            <muxc:NavigationView.PaneHeader>
+                <StackPanel Margin="16,8,16,16">
+                    <TextBlock Text="STREAM"
+                               FontSize="10"
+                               CharacterSpacing="200"
+                               Foreground="{StaticResource TextTertiaryBrush}"
+                               Margin="4,0,0,8"/>
+                </StackPanel>
+            </muxc:NavigationView.PaneHeader>
+
+            <muxc:NavigationView.MenuItems>
+                <muxc:NavigationViewItem Tag="home" Content="Home" IsSelected="True">
+                    <muxc:NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE80F;" FontFamily="{StaticResource SymbolFont}" />
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem Tag="devices" Content="Devices">
+                    <muxc:NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE8EA;" FontFamily="{StaticResource SymbolFont}" />
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem Tag="session" Content="Session">
+                    <muxc:NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE93E;" FontFamily="{StaticResource SymbolFont}" />
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+            </muxc:NavigationView.MenuItems>
+
+            <muxc:NavigationView.FooterMenuItems>
+                <muxc:NavigationViewItem Tag="settings" Content="Settings">
+                    <muxc:NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE713;" FontFamily="{StaticResource SymbolFont}" />
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+            </muxc:NavigationView.FooterMenuItems>
+
+            <Frame x:Name="ContentFrame" Margin="0" />
+        </muxc:NavigationView>
+    </Grid>
+</winex:WindowEx>
